@@ -1,0 +1,19 @@
+{
+  "name": "cs340-finalproject",
+  "version": "1.0.0",
+  "description": "Final Project for OSU CS340, partner with Aleksander Bruske",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arbruske/CS340-FinalProject.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arbruske/CS340-FinalProject/issues"
+  },
+  "homepage": "https://github.com/arbruske/CS340-FinalProject#readme"
+}
