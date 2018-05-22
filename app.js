@@ -1,0 +1,44 @@
+const express = require('express');
+const mysql = require('./dbcon.js');
+const bP = require('body-parser');
+const path = require('path');
+const handleBars = require('express-handlebars').create({ 
+    defaultLayout: 'main',
+    layoutsDir: path.join(__dirname, 'views/layouts')
+});
+
+// EXPRESS server config
+var app = express();
+app.set('port', 65234);
+var server = app.listen( process.env.PORT || 65234 || app.get('port'), function(){
+    console.log('Listening on port ' + server.address().port);
+});
+
+// handlebars config
+app.engine('handlebars', handleBars.engine);
+app.set('view engine', 'handlebars');
+app.set('views', path.join(__dirname, "views"));
+
+app.get('/', function(req, res){
+    res.render('index');
+});
+
+app.get('/new-order', function(req, res){
+    res.render('new_order');
+})
+
+app.get('/customers', function(req, res){
+    res.render('customers');
+})
+
+app.get('/orders', function(req, res){
+    res.render('orders');
+});
+
+app.get('/products', function(req, res){
+    res.render('products');
+});
+
+app.get('/salespeople', function(req, res){
+    res.render('salespeople');
+})
