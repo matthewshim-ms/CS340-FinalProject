@@ -1,0 +1,17 @@
+<h2>Add new Product:</h2>
+
+<form id="add-product" action="/new-product" method="POST">
+  Name:<br>
+  <input type="text" name="product_name">
+  <br><br>
+  Description:<br>
+  <input type="text" name="description">
+  <br><br>
+  Quantity (between 1 and 99):
+  <input type="number" name="quantity" min="1" max="99">
+  <br><br>
+  Price: (USD):
+  <input type="number" name="price" min="1" step="any" />
+  <br><br>
+  <input type="submit" value="Submit">
+</form>

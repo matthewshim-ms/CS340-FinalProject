@@ -1,0 +1,62 @@
+<h1> General Store Manager </h1>
+<div>
+    <h2>Latest Orders</h2>
+    <thead>
+        <th>Order ID</th>
+        <th>Salesperson ID</th>
+    </thead>
+    <tbody>
+        {{#each order}}
+        <tr>
+            <td>{{cid}}</td>
+            <td>Salesperson id: {{sid}}</td>
+            <td><button onclick="deleteOrder({{cid}})">Delete</button></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</div>
+
+<div>
+    <h2>Newest Products</h2>
+    <thead>
+        <th>Product ID</th>
+        <th>Name</th>
+        <th>Quantity</th>
+    </thead>
+    {{#each product}}
+    <tr>
+        <td>{{pid}}</td>
+        <td>{{name}}</td>
+        <td>{{quantity}}</td>
+        <td><button onclick="deleteProduct({{pid}})">Delete</button></td>
+    </tr>
+    {{/each}}
+</div>
+
+<div>
+    <h2>New Customers</h2>
+    <thead>
+        <th>First Name</th>
+        <th>Last Name</th>
+    </thead>
+    {{#each customer}}
+    <tr>
+        <td>{{first_name}}</td>
+        <td>{{last_name}}</td>
+    </tr>
+    {{/each}}
+</div>
+
+<div>
+    <h2>New Salespeople</h2>
+    <thead>
+        <th>First Name</th>
+        <th>Last Name</th>
+    </thead>
+    {{#each salesperson}}
+    <tr>
+        <td>{{first_name}}</td>
+        <td>{{last_name}}</td>
+    </tr>
+    {{/each}}
+</div>

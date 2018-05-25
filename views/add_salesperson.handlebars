@@ -1,0 +1,53 @@
+<div>
+  <h3>Add new Sales Person</h3>
+  <form id="add-customer" action="/new-customer" method="POST">
+    First name:<br>
+    <input type="text" name="first_name">
+    <br>
+    Last name:<br>
+    <input type="text" name="last_name">
+    <br><br>
+    Salary:
+    <input type="number">
+    <br><br>
+    <input type="submit" value="Submit">
+  </form>
+</div>
+
+<div>
+  <form>
+    <h3>Associate Salesperson with Customer</h3>
+    Customer:<br>
+      <select name="customers">
+        {{#each customer}}
+        <option value="{{first_name}} {{last_name}}"></option>
+        <br>
+        {{/each}}
+      </select>
+    <br><br>
+    Sales Person:<br>
+      <select name="salesperson">
+        {{#each salesperson}}
+        <option vaolue="{{first_name}} {{last_name}}"></option>
+        <br>
+        {{/each}}
+      </select> 
+      <input type="submit" value="Submit">
+  </form>
+</div>
+
+<div>
+<h3>List of Salespersons and their Customers</h3>
+    <thead>
+        <th>Salesperson</th>
+        <th>Customer</th>
+    </thead>
+    {{#each customer_salesreps}}
+    <tr>
+        <td>{{salesperson.first_name}} {{salesperson.last_name}}</td>
+        <td>{{customer.first_name}} {{customer.last_name}}</td>
+        <td><a href="/customer_salesreps/{{id}}">Update</a></td>
+        <td><button onclick="deleteProblem({{id}})">Delete</button></td>
+    </tr>
+    {{/each}}
+</div>
