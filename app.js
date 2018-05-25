@@ -24,7 +24,7 @@ app.get('/', function(req, res){
 });
 
 app.get('/new-order', function(req, res){
-    res.render('new_order');
+    res.render('add_order');
 })
 
 app.get('/customers', function(req, res){
@@ -41,4 +41,21 @@ app.get('/products', function(req, res){
 
 app.get('/salespeople', function(req, res){
     res.render('salespeople');
-})
+});
+
+app.get('/view-latest', function(req, res){
+    res.render('latest_info');
+});
+
+app.get('/add-product', function(req, res){
+    res.render('add_product');
+});
+
+app.get('/add-customer', function(req, res){
+    res.render('add_customer');
+});
+
+app.get('/add-salesperson', function(req, res){
+    res.render('add_salesperson');
+});
+

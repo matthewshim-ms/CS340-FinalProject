@@ -1,1 +1,39 @@
 <h1>Products</h1>
+
+<div>
+    <table>
+        <thead>
+            <th>Product ID</th>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Desc</th>
+            <th>Price</th>
+        </thead>
+        {{!-- TO DELETE LATER --}}
+        <tr>
+            <td>1341</td>
+            <td>Macbook</td>
+            <td>51</td>
+            <td>a cool laptop</td>
+            <td>$1400</td>
+            <td><a href="/update_product/{{id}}">Update</a></td>
+            <td><button onclick="deleteProduct({{pid}})">Delete</button></td>
+        </tr>
+        {{#each product}}
+        <tr>
+            <td>{{pid}}</td>
+            <td>{{name}}</td>
+            <td>{{quantity}}</td>
+            <td><button onclick="deleteProduct({{pid}})">Delete</button></td>
+        </tr>
+        {{/each}}
+    </table>
+</div>
+
+<div>
+    <h3>Search Product</h3>
+    <form action="search" method="POST">
+        <input type="text">
+        <button type="submit">Search</button>
+    </form>
+</div>

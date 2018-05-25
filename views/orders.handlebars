@@ -1,1 +1,31 @@
 <h1>Orders</h1>
+
+<div>
+    <table>
+        <thead>
+            <th>Order ID</th>
+            <th>Salesperson ID</th>
+            <th>Products</th>
+        </thead>
+        {{!-- DELETE LATER --}}
+        <tr>
+            <td>12345</td>
+            <td>98124</td>
+            <td>Macbook, QTY: 12</td>
+            <td><a href="/update_order/{{id}}">Update</a></td>
+            <td><button onclick="deleteOrder({{cid}})">Delete</button></td>
+        </tr>
+
+        <tbody>
+            {{#each order}}
+            <tr>
+                <td>{{cid}}</td>
+                <td>Salesperson id: {{sid}}</td>
+                <td><button onclick="deleteOrder({{cid}})">Delete</button></td>
+            </tr>
+            {{/each}}
+        </tbody>
+
+    </table>
+
+</div>
