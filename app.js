@@ -13,6 +13,12 @@ app.set('port', 65234);
 var server = app.listen( process.env.PORT || 65234 || app.get('port'), function(){
     console.log('Listening on port ' + server.address().port);
 });
+app.set('mysql', mysql);
+
+
+app.use('/customers', require('./customers.js'));
+app.use('/static', express.static('public'));
+
 
 // handlebars config
 app.engine('handlebars', handleBars.engine);
