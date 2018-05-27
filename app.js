@@ -25,8 +25,8 @@ app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, "views"));
 
 
-
 app.use('/customers', require('./customers.js'));
+app.use('/salespeople', require('./salespeople.js'));
 
 
 app.get('/', function(req, res){
