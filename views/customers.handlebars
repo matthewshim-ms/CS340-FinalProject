@@ -1,4 +1,4 @@
-<h1>Customers</h1>
+<h1>Customers List</h1>
 
 <div>
     <table>
@@ -16,4 +16,15 @@
         <td><button onclick="deleteCustomer({{id}})">Delete</button></td>
     </tr>
     {{/each}}    
+</div>
+
+<div>
+  <h2>Add new Customer</h2>
+  <form id="add-customer" action="/customers" method="POST">
+    First name:<br>
+    <input type="text" name="fname_input" required><br>
+    Last name:<br>
+    <input type="text" name="lname_input" required><br><br>
+    <input type="submit" value="Submit">
+  </form>
 </div>

@@ -14,11 +14,11 @@ var server = app.listen( process.env.PORT || 65234 || app.get('port'), function(
     console.log('Listening on port ' + server.address().port);
 });
 app.set('mysql', mysql);
+app.use(bP.urlencoded({extended:true}));
 
 
 app.use('/customers', require('./customers.js'));
 app.use('/static', express.static('public'));
-
 
 // handlebars config
 app.engine('handlebars', handleBars.engine);
@@ -31,11 +31,7 @@ app.get('/', function(req, res){
 
 app.get('/new-order', function(req, res){
     res.render('add_order');
-})
-
-app.get('/customers', function(req, res){
-    res.render('customers');
-})
+});
 
 app.get('/orders', function(req, res){
     res.render('orders');

@@ -11,14 +11,14 @@ module.exports = function(){
                 res.end();
             }
             context.customers = result;
-            complete();
+            done();
         });
     }
 
     router.post('/', function(req, res){
         var mysql = req.app.get('mysql');
-        var sql = "proj_customers(first_name, last_name) VALUES (?, ?)";
-        console.log(req);
+        var sql = "INSERT INTO proj_customers(first_name, last_name) VALUES (?, ?)";
+        console.log(req.body);
         var inserts = [req.body.fname_input, req.body.lname_input];
         
         sql = mysql.pool.query(sql, inserts, function(err, result, fields){
