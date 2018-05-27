@@ -13,6 +13,8 @@
             <td>{{name}}</td>
             <td>{{quantity}}</td>
             <td>{{description}}</td>
+            <td>$ {{price}}</td>
+            <td><a href="/products/{{product_id}}">Update</a></td>
             <td><button onclick="deleteProduct({{product_id}})">Delete</button></td>
         </tr>
         {{/each}}
