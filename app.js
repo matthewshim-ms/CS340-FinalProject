@@ -34,7 +34,6 @@ app.get('/', function(req, res){
     res.render('index');
 });
 
-
 app.get('/new-order', function(req, res){
     res.render('add_order');
 });
@@ -43,24 +42,8 @@ app.get('/orders', function(req, res){
     res.render('orders');
 });
 
-app.get('/products', function(req, res){
-    res.render('products');
-});
-
-app.get('/salespeople', function(req, res){
-    res.render('salespeople');
-});
 
 app.get('/view-latest', function(req, res){
     res.render('latest_info');
-});
-
-app.get('/add-product', function(req, res){
-    res.render('add_product');
-});
-
-
-app.get('/add-salesperson', function(req, res){
-    res.render('add_salesperson');
 });
 
