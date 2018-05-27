@@ -7,10 +7,12 @@ module.exports = function(){
         var sql_query = "SELECT first_name, last_name FROM proj_customers";
         mysql.pool.query(sql_query, function(err, result, fields){
             if(err){
+                console.log(err);
                 res.write(JSON.stringify(err));
                 res.end();
             }
             context.customers = result;
+        
             done();
         });
     }
@@ -26,20 +28,24 @@ module.exports = function(){
                 res.write(JSON.stringify(err));
                 res.end();
             }else{
+                // console.log("CUSTOMER ADDED TO DATABASE");
                 res.redirect('/customers');
             }
         });
     });
 
     router.get('/', function(req, res){
+
         var callbackCount = 0;
         var context = {};
 
         var mysql = req.app.get('mysql');
+
         getCustomers(res, mysql, context, done);
+
         function done(){
             callbackCount++;
-            if(callbackCount >= 2){
+            if(callbackCount >= 1){
                 res.render('customers', context);
             }
         }
@@ -47,7 +53,7 @@ module.exports = function(){
 
     router.delete('/:cid', function(req, res){
         var mysql = req.app.get('mysql');
-        var sql = "DELETE FROM proj_customers WHERE customer_id ?";
+        var sql = "DELETE FROM proj_customers WHERE customer_id = ?";
         var insert = req.params.cid;
 
         sql = mysql.pool.query(sql, inserts, function(err, results, fields){

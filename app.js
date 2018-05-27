@@ -17,7 +17,6 @@ app.set('mysql', mysql);
 app.use(bP.urlencoded({extended:true}));
 
 
-app.use('/customers', require('./customers.js'));
 app.use('/static', express.static('public'));
 
 // handlebars config
@@ -25,9 +24,15 @@ app.engine('handlebars', handleBars.engine);
 app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, "views"));
 
+
+
+app.use('/customers', require('./customers.js'));
+
+
 app.get('/', function(req, res){
     res.render('index');
 });
+
 
 app.get('/new-order', function(req, res){
     res.render('add_order');
@@ -53,9 +58,6 @@ app.get('/add-product', function(req, res){
     res.render('add_product');
 });
 
-app.get('/add-customer', function(req, res){
-    res.render('add_customer');
-});
 
 app.get('/add-salesperson', function(req, res){
     res.render('add_salesperson');
