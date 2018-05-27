@@ -27,6 +27,7 @@ app.set('views', path.join(__dirname, "views"));
 
 app.use('/customers', require('./customers.js'));
 app.use('/salespeople', require('./salespeople.js'));
+app.use('/products', require('./products.js'));
 
 
 app.get('/', function(req, res){
