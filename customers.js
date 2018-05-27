@@ -4,7 +4,7 @@ module.exports = function(){
     var router = express.Router();
 
     function getCustomers(res, mysql, context, done){
-        var sql_query = "SELECT first_name, last_name FROM proj_customers";
+        var sql_query = "SELECT customer_id, first_name, last_name FROM proj_customers";
         mysql.pool.query(sql_query, function(err, result, fields){
             if(err){
                 console.log(err);
@@ -38,6 +38,7 @@ module.exports = function(){
 
         var callbackCount = 0;
         var context = {};
+        context .jsscripts = ["deletecustomer.js"];
 
         var mysql = req.app.get('mysql');
 
@@ -52,12 +53,13 @@ module.exports = function(){
     });
 
     router.delete('/:cid', function(req, res){
+
         var mysql = req.app.get('mysql');
         var sql = "DELETE FROM proj_customers WHERE customer_id = ?";
-        var insert = req.params.cid;
+        var inserts = req.params.cid;
 
         sql = mysql.pool.query(sql, inserts, function(err, results, fields){
-            if(Err){
+            if(err){
                 res.write(JSON.stringify(err));
                 res.end();
             }else{

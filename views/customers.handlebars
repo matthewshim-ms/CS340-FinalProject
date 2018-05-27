@@ -10,8 +10,8 @@
         <tr>
             <td>{{first_name}}</td>
             <td>{{last_name}}</td>
-            <td><a href="/customer/{{id}}">Update</a></td>
-            <td><button onclick="deleteCustomer({{id}})">Delete</button></td>
+            <td><a href="/customers/{{customer_id}}">Update</a></td>
+            <td><button onclick="deleteCustomer({{customer_id}})">Delete</button></td>
         </tr>
         {{/each}}        
     </table>
