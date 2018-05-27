@@ -17,6 +17,19 @@ module.exports = function(){
         });
     }
 
+    function getSalesRep(res, mysql, context, salesrep_id, complete) {
+        var sql = "SELECT salesrep_id, first_name, last_name, salary FROM proj_sales_reps WHERE salesrep_id = ?";
+        var inserts = [salesrep_id];
+        mysql.pool.query(sql, inserts, function(err, results, fields) {
+            if (err) {
+                res.write(JSON.stringify(error));
+                res.end();
+            }
+            context.salesreps = results[0];
+            complete();
+        });
+    }
+
     router.post('/', function(req, res){
         var mysql = req.app.get('mysql');
         var sql = "INSERT INTO proj_sales_reps(first_name, last_name, salary) VALUES (?, ?, ?)";
@@ -73,5 +86,37 @@ module.exports = function(){
         });
     });
 
+    //Update Sales Rep
+
+    router.get('/:salesrep_id', function(req, res) {
+        callbackCount = 0;
+        var context = {};
+        context.jsscripts = ["updatesalesrep.js"];
+        var mysql = req.app.get('mysql');
+        getSalesRep(res, mysql, context, req.param.salesrep_id, complete);
+        function complete() {
+            callbackCount++
+            if (callbackCount >= 1)
+            {
+                res.render('update-salesrep', context);
+            }
+        }
+    });
+
+    //The URI that update data is sent to in order to update the sales person
+    router.put('/:salesrep_id', function(req, res) {
+        var mysql = req.app.get('mysql');
+        var sql = "UPDATE proj_sales_reps SET first_name=?, last_name=?, salary=? WHERE salesrep_id =?";
+        var inserts = [req.body.first_name, req.bosy.last_name, req.body.salary, req.param.salesrep_id];
+        sql = mysql.pool.query(sql, inserts, function(err, results, fields) {
+            if (err) {
+                res.write(JSON.stringify(err));
+                res.end();
+            } else {
+                res.status(200);
+                res.end();
+            }
+        });
+    });
     return router;
 }();
