@@ -3,33 +3,33 @@ module.exports = function(){
     var express = require('express');
     var router = express.Router();
 
-    function getCustomers(res, mysql, context, done){
-        var sql_query = "SELECT customer_id, first_name, last_name FROM proj_customers";
+    function getSalesPeople(res, mysql, context, done){
+        var sql_query = "SELECT salesrep_id, first_name, last_name, salary FROM proj_sales_reps";
         mysql.pool.query(sql_query, function(err, result, fields){
             if(err){
                 console.log(err);
                 res.write(JSON.stringify(err));
                 res.end();
             }
-            context.customers = result;
-            // console.log(context.customers);
+            context.salesreps = result;
+
             done();
         });
     }
 
     router.post('/', function(req, res){
         var mysql = req.app.get('mysql');
-        var sql = "INSERT INTO proj_customers(first_name, last_name) VALUES (?, ?)";
+        var sql = "INSERT INTO proj_sales_reps(first_name, last_name, salary) VALUES (?, ?, ?)";
         console.log(req.body);
-        var inserts = [req.body.fname_input, req.body.lname_input];
+        var inserts = [req.body.fname_input, req.body.lname_input, req.body.salary];
         
         sql = mysql.pool.query(sql, inserts, function(err, result, fields){
             if(err){
                 res.write(JSON.stringify(err));
                 res.end();
             }else{
-                // console.log("CUSTOMER ADDED TO DATABASE");
-                res.redirect('/customers');
+                console.log("SALESREP ADDED TO DATABASE");
+                res.redirect('/salespeople');
             }
         });
     });
@@ -38,16 +38,16 @@ module.exports = function(){
 
         var callbackCount = 0;
         var context = {};
-        context .jsscripts = ["deletecustomer.js"];
+        context .jsscripts = ["deletesalesrep.js"];
 
         var mysql = req.app.get('mysql');
 
-        getCustomers(res, mysql, context, done);
+        getSalesPeople(res, mysql, context, done);
 
         function done(){
             callbackCount++;
             if(callbackCount >= 1){
-                res.render('customers', context);
+                res.render('salespeople', context);
             }
         }
     });
@@ -57,7 +57,7 @@ module.exports = function(){
         console.log("DELETE ROUTE HIT");
 
         var mysql = req.app.get('mysql');
-        var sql = "DELETE FROM proj_customers WHERE customer_id = ?";
+        var sql = "DELETE FROM proj_sales_reps WHERE salesrep_id = ?";
         var inserts = req.params.cid;
 
         sql = mysql.pool.query(sql, inserts, function(err, results, fields){
@@ -72,11 +72,6 @@ module.exports = function(){
             }
         });
     });
-
-    // router.put('/:cid', function(req, res){
-    //     var mysql = req.app.get('mysql');
-    //     var sql = ""
-    // });
 
     return router;
 }();
