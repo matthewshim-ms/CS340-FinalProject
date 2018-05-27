@@ -1,7 +1,7 @@
-<h1>Update {{proj_sales_reps.first_name}} {{proj_sales_reps.last_name}}:</h1>
-<form id="update-salesrep" action="/salespeople" method="post">
-    First name: <input type="text" name="first_name" value="{{proj_sales_reps.first_name}}"><br>
-    Last name: <input type="text" name="last_name" value="{{proj_sales_reps.last_name}}"><br>
-    Salary: <input type="number" name="salary" value="{{proj_sales_reps.salary}}"><br>
+<h1>Update {{salesreps.first_name}} {{salesreps.last_name}}:</h1>
+<form id="update-salesrep" action="/updatesalesrep" method="post">
+    First name: <input type="text" name="first_name" value="{{salesreps.first_name}}"><br>
+    Last name: <input type="text" name="last_name" value="{{salesreps.last_name}}"><br>
+    Salary: <input type="number" name="salary" value="{{salesreps.salary}}"><br>
 </form>
-<button onclick="updateSalesRep({{proj_sales_reps.salesrep_id}})">Update</button>
+<button onclick="updateSalesRep({{salesreps.salesrep_id}})">Update</button>

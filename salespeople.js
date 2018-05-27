@@ -22,7 +22,7 @@ module.exports = function(){
         var inserts = [salesrep_id];
         mysql.pool.query(sql, inserts, function(err, results, fields) {
             if (err) {
-                res.write(JSON.stringify(error));
+                res.write(JSON.stringify(err));
                 res.end();
             }
             context.salesreps = results[0];
@@ -93,9 +93,9 @@ module.exports = function(){
         var context = {};
         context.jsscripts = ["updatesalesrep.js"];
         var mysql = req.app.get('mysql');
-        getSalesRep(res, mysql, context, req.param.salesrep_id, complete);
+        getSalesRep(res, mysql, context, req.params.salesrep_id, complete);
         function complete() {
-            callbackCount++
+            callbackCount++;
             if (callbackCount >= 1)
             {
                 res.render('update-salesrep', context);
@@ -107,7 +107,7 @@ module.exports = function(){
     router.put('/:salesrep_id', function(req, res) {
         var mysql = req.app.get('mysql');
         var sql = "UPDATE proj_sales_reps SET first_name=?, last_name=?, salary=? WHERE salesrep_id =?";
-        var inserts = [req.body.first_name, req.bosy.last_name, req.body.salary, req.param.salesrep_id];
+        var inserts = [req.body.first_name, req.body.last_name, req.body.salary, req.params.salesrep_id];
         sql = mysql.pool.query(sql, inserts, function(err, results, fields) {
             if (err) {
                 res.write(JSON.stringify(err));
@@ -115,8 +115,10 @@ module.exports = function(){
             } else {
                 res.status(200);
                 res.end();
+                console.log("Updated Sales Rep");
             }
         });
     });
+    
     return router;
 }();
