@@ -41,9 +41,11 @@ Constraints for table 'proj_customer_salesreps'
 */
 ALTER TABLE `proj_customer_salesreps`
     ADD CONSTRAINT `proj_customer_salesreps_ibfk1` FOREIGN KEY (`cid`)
-REFERENCES `proj_customers` (`customer_id`),
+REFERENCES `proj_customers` (`customer_id`)
+ON DELETE CASCADE,
     ADD CONSTRAINT `proj_customer_salesreps_ibfk2` FOREIGN KEY (`sid`)
-REFERENCES `proj_sales_reps` (`salesrep_id`);
+REFERENCES `proj_sales_reps` (`salesrep_id`)
+ON DELETE CASCADE;
 
 /*
 Indexes for table 'proj_customer_salesreps'
@@ -83,11 +85,11 @@ Constraints for table 'proj_orders'
 */
 ALTER TABLE `proj_orders`
     ADD CONSTRAINT `proj_orders.ibfk1` FOREIGN KEY (`cid`)
-REFERENCES `proj_customers` (`customer_id`),
+REFERENCES `proj_customers` (`customer_id`)
+ON DELETE CASCADE,
     ADD CONSTRAINT `proj_orders.ibfk2` FOREIGN KEY (`sid`)
-REFERENCES `proj_sales_reps` (`salesrep_id`),
-    ADD CONSTRAINT `proj_orders.ibfk3` FOREIGN KEY (`pid`)
-REFERENCES `proj_products` (`product_id`);
+REFERENCES `proj_sales_reps` (`salesrep_id`)
+ON DELETE CASCADE;
 
 
 /*
