@@ -74,3 +74,4 @@ SELECT first_name, last_name, salary FROM proj_sales_reps WHERE last_name LIKE '
 UPDATE proj_customer_salesreps
 SET cid = [newCustomer_id]
 WHERE sid = [selectedSalesRep_id] AND cid = [selectedCustomer_id];
+
