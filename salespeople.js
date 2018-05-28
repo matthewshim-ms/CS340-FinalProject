@@ -12,7 +12,21 @@ module.exports = function(){
                 res.end();
             }
             context.salesreps = result;
+            // console.log(context.salesreps);
+            done();
+        });
+    }
 
+    function getCustomers(res, mysql, context, done){
+        var sql_query = "SELECT customer_id, first_name, last_name FROM proj_customers";
+        mysql.pool.query(sql_query, function(err, result, fields){
+            if(err){
+                console.log(err);
+                res.write(JSON.stringify(err));
+                res.end();
+            }
+            context.customers = result;
+            // console.log(context.customers);
             done();
         });
     }
@@ -30,6 +44,7 @@ module.exports = function(){
         });
     }
 
+    // add Salesrep
     router.post('/', function(req, res){
         var mysql = req.app.get('mysql');
         var sql = "INSERT INTO proj_sales_reps(first_name, last_name, salary) VALUES (?, ?, ?)";
@@ -47,6 +62,16 @@ module.exports = function(){
         });
     });
 
+    // assign salesrep to customer
+    router.put('/assign', function(req, res){
+        console.log("GOT TO ASSIGN CUSTOMER AND SALESREP**");
+
+        var mysql = req.app.get('mysql');
+        var sql = ""
+
+    });
+
+
     router.get('/', function(req, res){
 
         var callbackCount = 0;
@@ -56,10 +81,15 @@ module.exports = function(){
         var mysql = req.app.get('mysql');
 
         getSalesPeople(res, mysql, context, done);
+        getCustomers(res, mysql, context, done);
 
         function done(){
             callbackCount++;
-            if(callbackCount >= 1){
+
+            if(callbackCount >= 2){
+
+                //console.log(context);
+
                 res.render('salespeople', context);
             }
         }

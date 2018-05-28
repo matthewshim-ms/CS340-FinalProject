@@ -36,24 +36,24 @@
 </div>
 
 <div>
-  <form>
+  <form id="assign-salesrep" action="/salespeople/assign" method="POST">
     <h3>Associate Salesperson with Customer</h3>
     Customer:<br>
       <select name="customers">
-        {{#each customer}}
-        <option value="{{first_name}} {{last_name}}"></option>
+        {{#each customers}}
+        <option value="{{customer_id}}">{{first_name}} {{last_name}}</option>
         <br>
         {{/each}}
       </select>
     <br><br>
     Sales Person:<br>
       <select name="salesperson">
-        {{#each salesperson}}
-        <option vaolue="{{first_name}} {{last_name}}"></option>
+        {{#each salesreps}}
+        <option value="{{salesrep_id}}">{{first_name}} {{last_name}}</option>
         <br>
         {{/each}}
       </select> 
-      <input type="submit" value="Submit">
+      <button onclick=""></button>
   </form>
 </div>
 

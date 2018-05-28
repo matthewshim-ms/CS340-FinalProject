@@ -36,16 +36,13 @@ module.exports = function(){
         });
     }
 
-    // DELETE ONE PRODUCT
     router.get('/', function(req, res){
         var callbackCount = 0;
         var context = {};
-
         context.jsscripts = ["deleteproduct.js"];
 
         var mysql = req.app.get('mysql');
 
-        // callbacks
         getProducts(res, mysql, context, done);
 
         function done(){
