@@ -17,6 +17,19 @@ module.exports = function(){
         });
     }
 
+    function getCustomer(res, mysql, context, customer_id, complete) {
+        var sql = "SELECT customer_id, first_name, last_name FROM proj_customers WHERE customer_id = ?";
+        var inserts = [customer_id];
+        mysql.pool.query(sql, inserts, function(err, results, fields) {
+            if (err) {
+                res.write(JSON.stringify(err));
+                res.end();
+            }
+            context.customers = results[0];
+            complete();
+        });
+    }
+
     router.post('/', function(req, res){
         var mysql = req.app.get('mysql');
         var sql = "INSERT INTO proj_customers(first_name, last_name) VALUES (?, ?)";
@@ -69,6 +82,38 @@ module.exports = function(){
             }else{
                 res.status(202);
                 res.end();
+            }
+        });
+    });
+
+    router.get('/:customer_id', function(req, res) {
+        callbackCount = 0;
+        var context = {};
+        context.jsscripts = ["updatecustomer.js"];
+        var mysql = req.app.get('mysql');
+        getCustomer(res, mysql, context, req.params.customer_id, complete);
+        function complete() {
+            callbackCount++;
+            if (callbackCount >= 1)
+            {
+                res.render('update-customer', context);
+            }
+        }
+    });
+
+    //The URI that update data is sent to in order to update the customer
+    router.put('/:customer_id', function(req, res) {
+        var mysql = req.app.get('mysql');
+        var sql = "UPDATE proj_customers SET first_name=?, last_name=? WHERE customer_id=?";
+        var inserts = [req.body.first_name, req.body.last_name, req.params.customer_id];
+        sql = mysql.pool.query(sql, inserts, function(err, results, fields) {
+            if (err) {
+                res.write(JSON.stringify(err));
+                res.end();
+            } else {
+                res.status(200);
+                res.end();
+                console.log("Updated Customer");
             }
         });
     });
