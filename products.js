@@ -19,6 +19,24 @@ module.exports = function(){
         });
     }
 
+    // GET SEARCHED PRODUCTS
+    function searchProducts(res, mysql, context, done, searchedProduct){
+
+        var sql = "SELECT name, description, price, quantity FROM proj_products WHERE name = " + "'" + searchedProduct + "'"; //LIKE %name=?%
+
+        mysql.pool.query(sql, function(err, result, fields){
+            if(err){
+                console.log(err);
+                res.write(JSON.stringify(err));
+                res.end();
+            }
+            context.searchedProducts = result;
+            // console.log(context.products);
+            done();
+        });
+    } 
+
+
     // GET ONE PRODUCT
     function getOneProduct(res, mysql, context, pid, done){
 
@@ -40,11 +58,25 @@ module.exports = function(){
         var callbackCount = 0;
         var context = {};
         context.jsscripts = ["deleteproduct.js"];
+        var productName = req.query.product_name;
 
         var mysql = req.app.get('mysql');
 
-        getProducts(res, mysql, context, done);
-
+        if (productName == undefined || productName == "") {
+            getProducts(res, mysql, context, done);
+        } else {
+            mysql.pool.query("SELECT name, description, price, quantity FROM proj_products WHERE name LIKE '%" + req.query.product_name + "%'", function(err, results, fields){
+                if(err){
+                    res.write(JSON.stringify(err));
+                    res.end();
+                }
+                console.log("This gets searched product");
+                context.products = results;
+                done();
+            })
+            console.log("Searched product");
+        }
+    
         function done(){
             callbackCount++;
             if(callbackCount >= 1){
@@ -52,6 +84,7 @@ module.exports = function(){
             }
         }
     });
+
 
     // UPDATE ONE PRODUCT
     router.get('/:pid', function(req, res){
