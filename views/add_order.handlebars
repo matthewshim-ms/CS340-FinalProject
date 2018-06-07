@@ -3,13 +3,6 @@
 <form id="new-order" action="/add-order" method="POST">
 
   Customer:<br>
-    {{!-- DELTE LATER  --}}
-    <select name="customers">
-      <option value="Bill Jones">Bill Jones</option>
-      <option value="Sally Smith">Sally Smith</option>
-    </select>
-
-
   <select name="customers">
     {{#each customer}}
     <option value="{{first_name}} {{last_name}}"></option>
@@ -19,13 +12,6 @@
   <br><br>
 
   Product:<br>
-  {{!-- DELETE LATER --}}
-  <select name="products">
-    <option value="Macbook">Macbook</option>
-    Quantity (1 - 99):
-    <input type="number" name="quantity" min="1" max="99">
-  </select>
-
   <select name="products">
     {{#each product}}
     <option value="{{name}}">{{name}}</option>
@@ -37,14 +23,9 @@
   <br><br>
 
     Salesperson:<br>
-    {{!-- DELETE LATER --}}
-    <select name="salesperson">
-      <option value="John Do">John Do</option>
-    </select>
-
     <select name="salesperson">
       {{#each salesperson}}
-      <option vaolue="{{first_name}} {{last_name}}"></option>
+      <option value="{{first_name}} {{last_name}}"></option>
       <br>
       {{/each}}
     </select> 
