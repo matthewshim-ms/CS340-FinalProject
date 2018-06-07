@@ -7,24 +7,66 @@
             <th>Last Name</th>
             <th>Salary</th>
         </thead>
-        {{!-- DELETE LATER --}}
+        {{#each salesreps}}
         <tr>
-            <td>John</td>
-            <td>Doe</td>
-            <td>50000</td>
-            <td><a href="/customer_salesreps/{{id}}">Update</a></td>
-            <td><button onclick="deleteProblem({{id}})">Delete</button></td>
+            <td>{{first_name}}</td>
+            <td>{{last_name}}</td>
+            <td>{{salary}}</td>
+            <td><a href="/salespeople/{{salesrep_id}}">Update</a></td>
+            <td><button onclick="deleteSalesrep({{salesrep_id}})">Delete</button></td>
         </tr>
+        {{/each}}
     </table>
+</div>
 
-   
+<div>
+  <h3>Add new Sales Person</h3>
+  <form id="add-salespeople" action="/salespeople" method="POST">
+    First name:<br>
+    <input type="text" name="fname_input">
+    <br>
+    Last name:<br>
+    <input type="text" name="lname_input">
+    <br><br>
+    Salary:
+    <input type="number" name="salary">
+    <br><br>
+    <input type="submit" value="Submit">
+  </form>
+</div>
 
-   
-    {{#each salesperson}}
+<div>
+  <form id="assign-salesrep" action="/salespeople/assign" method="POST">
+    <h3>Associate Salesperson with Customer</h3>
+    Customer:<br>
+      <select name="customers">
+        {{#each customers}}
+        <option value="{{customer_id}}">{{first_name}} {{last_name}}</option>
+        <br>
+        {{/each}}
+      </select>
+    <br><br>
+    Sales Person:<br>
+      <select name="salesperson">
+        {{#each salesreps}}
+        <option value="{{salesrep_id}}">{{first_name}} {{last_name}}</option>
+        <br>
+        {{/each}}
+      </select> 
+      <button onclick=""></button>
+  </form>
+</div>
+
+<div>
+<h3>List of Salespersons and their Customers</h3>
+    <thead>
+        <th>Salesperson</th>
+        <th>Customer</th>
+    </thead>
+    {{#each customer_salesreps}}
     <tr>
-        <td>{{first_name}}</td>
-        <td>{{last_name}}</td>
-        <td>{{salary}}</td>
+        <td>{{salesperson.first_name}} {{salesperson.last_name}}</td>
+        <td>{{customer.first_name}} {{customer.last_name}}</td>
         <td><a href="/customer_salesreps/{{id}}">Update</a></td>
         <td><button onclick="deleteProblem({{id}})">Delete</button></td>
     </tr>
