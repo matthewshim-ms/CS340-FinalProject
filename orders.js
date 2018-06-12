@@ -18,6 +18,22 @@ module.exports = function(){
         });
     }    
 
+    // GET CUSTOMERS
+    function getCustomers(res, mysql, context, done){
+        var sql_query = "SELECT customer_id, first_name, last_name FROM proj_customers";
+        mysql.pool.query(sql_query, function(err, result, fields){
+            if(err){
+                console.log(err);
+                res.write(JSON.stringify(err));
+                res.end();
+            }
+            context.customers = result;
+            // console.log(context.customers);
+            done();
+        });
+    }    
+
+
     function getProducts(res, mysql, context, done){
 
         var sql = "SELECT product_id, name, description, quantity, price FROM proj_products";
@@ -34,7 +50,6 @@ module.exports = function(){
             done();
         });
     }
-
 
 
     function getSalesPeople(res, mysql, context, done){
@@ -59,7 +74,7 @@ module.exports = function(){
 
         var mysql = req.app.get('mysql');
 
-        getOrders(res, mysql, context, complete);
+        getCustomers(res, mysql, context, complete);
         getProducts(res, mysql, context, complete);
         getSalesPeople(res, mysql, context, complete);
 
