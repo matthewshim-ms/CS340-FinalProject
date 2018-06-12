@@ -16,14 +16,12 @@ var server = app.listen( process.env.PORT || 65234 || app.get('port'), function(
 app.set('mysql', mysql);
 app.use(bP.urlencoded({extended:true}));
 
-
 app.use('/static', express.static('public'));
 
 // handlebars config
 app.engine('handlebars', handleBars.engine);
 app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, "views"));
-
 
 app.use('/customers', require('./customers.js'));
 app.use('/salespeople', require('./salespeople.js'));
@@ -33,7 +31,6 @@ app.use('/orders', require('./orders.js'));
 app.get('/', function(req, res){
     res.render('index');
 });
-
 
 app.get('/view-latest', function(req, res){
     res.render('latest_info');

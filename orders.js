@@ -72,7 +72,7 @@ module.exports = function(){
 
         var callbackCount = 0;
         var context = {};
-        // context .jsscripts = ["deletecustomer.js"];
+         context.jsscripts = ["deleteorder.js"];
 
         var mysql = req.app.get('mysql');
 
@@ -171,6 +171,29 @@ module.exports = function(){
             }else{
                 console.log("ORDER UPDATED");
                 res.status(200);
+                res.end();
+            }
+        });
+    });
+
+    router.delete('/:oid', function(req, res){
+
+        console.log(req.params);
+
+        var mysql = req.app.get('mysql');
+        var sql = "DELETE FROM proj_orders WHERE orders_id = ?";
+
+        var inserts = [req.params.oid];
+
+        sql = mysql.pool.query(sql, inserts, function(err, result, fields){
+            if(err){
+                console.log(err);
+                res.write(JSON.stringify(err));
+                res.status(400);
+                res.end();
+            }else{
+                res.status(202);
+                console.log("DELETE CONFIRMED");
                 res.end();
             }
         });
