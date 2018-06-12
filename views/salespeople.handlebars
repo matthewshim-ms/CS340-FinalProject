@@ -36,12 +36,12 @@
 </div>
 
 <div>
-  <form id="assign-salesrep" action="/salespeople/assign" method="POST">
+  <form id="assign-salesrep" action="/salespeople/associate" method="POST">
     <h3>Associate Salesperson with Customer</h3>
     Customer:<br>
       <select name="customers">
         {{#each customers}}
-        <option value="{{customer_id}}">{{first_name}} {{last_name}}</option>
+        <option value="{{customer_id}}" name="4">{{first_name}} {{last_name}}</option>
         <br>
         {{/each}}
       </select>
@@ -49,26 +49,28 @@
     Sales Person:<br>
       <select name="salesperson">
         {{#each salesreps}}
-        <option value="{{salesrep_id}}">{{first_name}} {{last_name}}</option>
+        <option value="{{salesrep_id}}" name="1">{{first_name}} {{last_name}}</option>
         <br>
         {{/each}}
       </select> 
-      <button onclick=""></button>
+      <input type="submit" value="Submit">
   </form>
 </div>
 
 <div>
-<h3>List of Salespersons and their Customers</h3>
-    <thead>
-        <th>Salesperson</th>
-        <th>Customer</th>
-    </thead>
-    {{#each customer_salesreps}}
-    <tr>
-        <td>{{salesperson.first_name}} {{salesperson.last_name}}</td>
-        <td>{{customer.first_name}} {{customer.last_name}}</td>
-        <td><a href="/customer_salesreps/{{id}}">Update</a></td>
-        <td><button onclick="deleteProblem({{id}})">Delete</button></td>
-    </tr>
-    {{/each}}
+    <h3>List of Salespersons and their Customers</h3>
+    <table>
+       <thead>
+            <th>Salesperson</th>
+            <th>Customer</th>
+        </thead>
+        {{#each customers_salesreps}}
+        <tr>
+            <td>{{repFirstName}} {{repLastName}}</td>
+            <td>{{custFirstName}} {{custLastName}}</td> 
+            <td><a href="/salespeople/{{cid}}{{sid}}">Update</a></td>
+            <td><button onclick="disassociateRepCust({{cid}}, {{sid}})">Delete</button></td>   
+        </tr>
+        {{/each}}
+    </table>
 </div>

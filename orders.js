@@ -1,4 +1,11 @@
 module.exports = function(){
+    var express = require('express');
+    var router = express.Router();
+
+    // GET ALL ORDERS
+    function getOrders(res, mysql, context, done){
+
+    var sql = "SELECT orders_id, date, cust.first_name, cust.last_name, reps.first_name, reps.last_name FROM proj_orders INNER JOIN proj_sales_reps reps ON sid = salesrep_id INNER JOIN proj_customers cust ON cid = customer_id;";
 
     var express = require('express');
     var router = express.Router();
@@ -27,11 +34,14 @@ module.exports = function(){
                 res.write(JSON.stringify(err));
                 res.end();
             }
+
             context.products = result;
             // console.log(context.products);
             done();
         });
     }
+}
+
 
     function getSalesPeople(res, mysql, context, done){
         var sql_query = "SELECT salesrep_id, first_name, last_name, salary FROM proj_sales_reps";
@@ -72,3 +82,4 @@ module.exports = function(){
 
     return router;
 }();
+

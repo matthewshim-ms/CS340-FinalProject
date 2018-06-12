@@ -2,24 +2,35 @@
 
 <form id="new-order" action="/add-order" method="POST">
 
-  Customer:<br>
-  <select name="customers">
-    {{#each customers}}
-    <option value="{{customer_id}}">{{first_name}} {{last_name}}</option>
-    <br>
-    {{/each}}
-  </select>
-  <br><br>
+        <tbody>
+            {{#each orders}}
+            <tr>
+                <td>{{cid}}</td>
+                <td>Salesperson id: {{sid}}</td>
+                <td><button onclick="deleteOrder({{cid}})">Delete</button></td>
+            </tr>
+            {{/each}}
+        </tbody>
 
-  Product:<br>
-    {{#each products}}
-    <br>
-    <option value="{{name}}">{{name}}</option>
-    Quantity (1 - 99):
-    <input type="number" name="quantity" min="1" max="99">
-    <br>
-     {{/each}}
-  <br><br>
+      Customer:<br>
+      <select name="customers">
+        {{#each customers}}
+        <option value="{{customer_id}}">{{first_name}} {{last_name}}</option>
+        <br>
+        {{/each}}
+      </select>
+      <br><br>
+
+
+    Product:<br>
+      {{#each products}}
+      <br>
+      <option value="{{name}}">{{name}}</option>
+      Quantity (1 - 99):
+      <input type="number" name="quantity" min="1" max="99">
+      <br>
+       {{/each}}
+    <br><br>
 
     Salesperson:<br>
     <select name="salesperson">
