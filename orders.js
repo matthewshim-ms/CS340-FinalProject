@@ -5,15 +5,17 @@ module.exports = function(){
     // GET ALL ORDERS
     function getOrders(res, mysql, context, done){
   
-        var sql_query = "SELECT orders_id, date, cust.first_name, cust.last_name, reps.first_name, reps.last_name FROM proj_orders INNER JOIN proj_sales_reps reps ON sid = salesrep_id INNER JOIN proj_customers cust ON cid = customer_id;";
+        var sql_query = "SELECT orders_id, date, cust.first_name AS custFirstName, cust.last_name AS custLastName, reps.first_name AS repsFirstName, reps.last_name AS respLastName FROM proj_orders INNER JOIN proj_sales_reps reps ON sid = salesrep_id INNER JOIN proj_customers cust ON cid = customer_id;";
         mysql.pool.query(sql_query, function(err, result, fields){
             if(err){
                 console.log(err);
                 res.write(JSON.stringify(err));
                 res.end();
             }
-            context.customers = result;
-            // console.log(context.customers);
+            
+            console.log(result);
+            context.orders = result;
+            
             done();
         });
     }    
@@ -77,16 +79,38 @@ module.exports = function(){
         getCustomers(res, mysql, context, complete);
         getProducts(res, mysql, context, complete);
         getSalesPeople(res, mysql, context, complete);
+        getOrders(res, mysql, context, complete);
 
         function complete() {
             callbackCount++;
-            if (callbackCount >= 3) {
+            if (callbackCount >= 4) {
 
-                console.log(context);
+                //console.log(context);
 
                 res.render('orders', context);
             }
         }
+    });
+
+
+    // Add Orders
+    router.post('/', function(req, res){
+        var callbackCount = 0;
+        var mysql = req.app.get('mysql');
+        var sql = "INSERT INTO proj_orders(date, cid, sid, pid, quantity) VALUES (?, ?, ?, ?, ?);";
+
+        var inserts = [req.body.date, req.body.cid, req.body.sid, req.body.pid, req.body.quantity];
+
+        sql = mysql.pool.query(sql, inserts, function(err, results, fields){
+            if(err){
+                console.log(err);
+                res.write(JSON.stringify(err));
+                res.end();
+            }else{
+
+                res.redirect('/orders');
+            }
+        });
     });
 
     return router;

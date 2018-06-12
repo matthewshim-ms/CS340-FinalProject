@@ -1,43 +1,36 @@
 <h1>Place an Order:</h1>
 <form id="new-order" action="/orders" method="POST">
 
-        <tbody>
-            {{#each orders}}
-            <tr>
-                <td>{{cid}}</td>
-                <td>Salesperson id: {{sid}}</td>
-                <td><button onclick="deleteOrder({{cid}})">Delete</button></td>
-            </tr>
-            {{/each}}
-        </tbody>
-
-      Customer:<br>
-      <select name="customers">
-        {{#each customers}}
-        <option value="{{customer_id}}">{{first_name}} {{last_name}}</option>
-        <br>
-        {{/each}}
-      </select>
-      <br><br>
-
-
-    Product:<br>
-      {{#each products}}
+    Customer:<br>
+    <select name="cid">
+      {{#each customers}}
+      <option value="{{customer_id}}" name="customer_id">{{first_name}} {{last_name}}</option>
       <br>
-      <option value="{{name}}">{{name}}</option>
-      Quantity (1 - 99):
-      <input type="number" name="quantity" min="1" max="99">
-      <br>
-       {{/each}}
+      {{/each}}
+    </select>
     <br><br>
 
+    Product:<br>
+    <select name="pid">
+      {{#each products}}
+        <option value="{{product_id}}" name="product_id">{{name}}</option>
+        <br>
+       {{/each}}
+    </select> 
+    <br><br>
+    Quantity (1 - 99):
+    <input type="number" name="quantity" min="1" max="99">
+    <br><br>
     Salesperson:<br>
-    <select name="salesperson">
+    <select name="sid">
       {{#each salesreps}}
-      <option value="{{salesrep_id}}">{{first_name}} {{last_name}}</option>
+      <option value="{{salesrep_id}}" name="salesrep_id">{{first_name}} {{last_name}}</option>
       <br>
       {{/each}}
     </select> 
+    <br><br>
+
+    Date: <input type="date" name="date">
     <br><br>
     <input type="submit" value="Submit">
    </select>
@@ -45,4 +38,21 @@
 
 <div>
   <h2>Current Orders</h2>
+  <table>
+    <thead>
+      <th>Order ID</th>
+      <th>Date</th>
+      <th>Customer</th>
+      <th>Sales Person</th>
+    </thead>
+    {{#each orders}}
+      <tr>
+          <td>{{orders_id}}</td>
+          <td>{{date}}</td>
+          <td>{{custFirstName}} {{custLastName}}</td>
+          <td>{{repsFirstName}} {{repsLastName}}</td>
+          <td><button onclick="deleteOrder({{orders_id}})">Delete</button></td>
+      </tr>
+    {{/each}}
+  </table>
 </div>
