@@ -4,14 +4,8 @@ module.exports = function(){
 
     // GET ALL ORDERS
     function getOrders(res, mysql, context, done){
-
-    var sql = "SELECT orders_id, date, cust.first_name, cust.last_name, reps.first_name, reps.last_name FROM proj_orders INNER JOIN proj_sales_reps reps ON sid = salesrep_id INNER JOIN proj_customers cust ON cid = customer_id;";
-
-    var express = require('express');
-    var router = express.Router();
-
-    function getCustomers(res, mysql, context, done){
-        var sql_query = "SELECT customer_id, first_name, last_name FROM proj_customers";
+  
+        var sql_query = "SELECT orders_id, date, cust.first_name, cust.last_name, reps.first_name, reps.last_name FROM proj_orders INNER JOIN proj_sales_reps reps ON sid = salesrep_id INNER JOIN proj_customers cust ON cid = customer_id;";
         mysql.pool.query(sql_query, function(err, result, fields){
             if(err){
                 console.log(err);
@@ -40,7 +34,7 @@ module.exports = function(){
             done();
         });
     }
-}
+
 
 
     function getSalesPeople(res, mysql, context, done){
@@ -65,7 +59,7 @@ module.exports = function(){
 
         var mysql = req.app.get('mysql');
 
-        getCustomers(res, mysql, context, complete);
+        getOrders(res, mysql, context, complete);
         getProducts(res, mysql, context, complete);
         getSalesPeople(res, mysql, context, complete);
 
