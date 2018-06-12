@@ -41,6 +41,7 @@
   <table>
     <thead>
       <th>Order ID</th>
+      <th>Product Name</th>
       <th>Date</th>
       <th>Customer</th>
       <th>Sales Person</th>
@@ -48,9 +49,11 @@
     {{#each orders}}
       <tr>
           <td>{{orders_id}}</td>
+          <td>{{prodName}}</td>
           <td>{{date}}</td>
           <td>{{custFirstName}} {{custLastName}}</td>
           <td>{{repsFirstName}} {{repsLastName}}</td>
+          <td><a href="/orders/{{orders_id}}">Update</a></td>
           <td><button onclick="deleteOrder({{orders_id}})">Delete</button></td>
       </tr>
     {{/each}}

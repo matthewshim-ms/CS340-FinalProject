@@ -1,0 +1,29 @@
+<h2>Update Order: {{orders_id}}</h2>
+<form id="update-order" action="/orders" method="POST">
+  Customer:<br>
+    <select name="cid">
+      {{#each customers}}
+      <option value="{{customer_id}}" name="customer_id">{{first_name}} {{last_name}}</option>
+      <br>
+      {{/each}}
+    </select>
+    <br><br>
+  Salesrep:<br>
+    <select name="sid">
+      {{#each salesreps}}
+      <option value="{{salesrep_id}}" name="salesrep_id">{{first_name}} {{last_name}}</option>
+      <br>
+      {{/each}}
+    </select> 
+    <br><br>
+    Product:<br>
+    <select name="pid">
+      {{#each products}}
+        <option value="{{product_id}}" name="product_id">{{name}}</option>
+        <br>
+       {{/each}}
+    </select> 
+    <br><br>
+</form>
+{{!-- NOTE: Insert/Post will be triggered if button is within form --}}
+<button onclick="updateOrder({{order.orders_id}})">Update</button>
