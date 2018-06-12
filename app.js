@@ -28,18 +28,10 @@ app.set('views', path.join(__dirname, "views"));
 app.use('/customers', require('./customers.js'));
 app.use('/salespeople', require('./salespeople.js'));
 app.use('/products', require('./products.js'));
-
+app.use('/orders', require('./orders.js'));
 
 app.get('/', function(req, res){
     res.render('index');
-});
-
-app.get('/new-order', function(req, res){
-    res.render('add_order');
-});
-
-app.get('/orders', function(req, res){
-    res.render('orders');
 });
 
 

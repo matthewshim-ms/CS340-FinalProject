@@ -1,12 +1,6 @@
-<h1>Orders</h1>
+<h1>Place an Order:</h1>
 
-<div>
-    <table>
-        <thead>
-            <th>Order ID</th>
-            <th>Salesperson ID</th>
-            <th>Products</th>
-        </thead>
+<form id="new-order" action="/add-order" method="POST">
 
         <tbody>
             {{#each orders}}
@@ -18,6 +12,34 @@
             {{/each}}
         </tbody>
 
-    </table>
+      Customer:<br>
+      <select name="customers">
+        {{#each customers}}
+        <option value="{{customer_id}}">{{first_name}} {{last_name}}</option>
+        <br>
+        {{/each}}
+      </select>
+      <br><br>
 
-</div>
+
+    Product:<br>
+      {{#each products}}
+      <br>
+      <option value="{{name}}">{{name}}</option>
+      Quantity (1 - 99):
+      <input type="number" name="quantity" min="1" max="99">
+      <br>
+       {{/each}}
+    <br><br>
+
+    Salesperson:<br>
+    <select name="salesperson">
+      {{#each salesreps}}
+      <option value="{{salesrep_id}}">{{first_name}} {{last_name}}</option>
+      <br>
+      {{/each}}
+    </select> 
+    <br><br>
+    <input type="submit" value="Submit">
+   </select>
+</form>
