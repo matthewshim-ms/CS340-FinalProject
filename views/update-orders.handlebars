@@ -1,5 +1,8 @@
 <h2>Update Order: {{orders_id}}</h2>
 <form id="update-order" action="/orders" method="POST">
+  Date:<br>
+  <input type="date" name="date">
+  <br><br>
   Customer:<br>
     <select name="cid">
       {{#each customers}}
@@ -23,6 +26,9 @@
         <br>
        {{/each}}
     </select> 
+    <br><br>
+    Quantity (1 - 99):
+    <input type="number" name="quantity" min="1" max="99">
     <br><br>
 </form>
 {{!-- NOTE: Insert/Post will be triggered if button is within form --}}
