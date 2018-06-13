@@ -127,7 +127,7 @@ module.exports = function(){
             callbackCount++;
             if(callbackCount >= 4){
 
-                //console.log(context);
+                console.log(context.order);
                 res.render('update-orders', context);
             }
         }
@@ -157,11 +157,11 @@ module.exports = function(){
 
     // UPDATE Order
     router.put('/:oid', function(req, res){
-        console.log(req.params);
+        console.log(req.body);
 
         var mysql = req.app.get('mysql');
         var sql = "UPDATE proj_orders SET date=?, cid=?, sid=?, pid=?, quantity=? WHERE orders_id=?";
-        var inserts = [req.body.date, req.body.cid, req.body.sid, req.body.pid, req.body.quantity, req.params.orders_id];
+        var inserts = [req.body.date, req.body.cid, req.body.sid, req.body.pid, req.body.quantity, req.params.oid];
 
         sql = mysql.pool.query(sql, inserts, function(err, result, fields){
             if(err){
